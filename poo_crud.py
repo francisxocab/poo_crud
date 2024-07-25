@@ -1,23 +1,19 @@
-#crear una aplicación sencilla para gestionar productos en una tienda
+# Desafío 1: Sistema de Gestión de Productos
+# Objetivo: Desarrollar un sistema para manejar productos en un inventario.
 
-# Ejercicio CRUD con POO en Python
-# Descripción:
+# Requisitos:
 
-# Este ejercicio te propone crear una aplicación sencilla para gestionar productos en una tienda. Implementarás las operaciones CRUD (Crear, Leer, Actualizar y Eliminar) utilizando Programación Orientada a Objetos (POO) en Python.
-
-
-
-# 1. Define las clases:
-
-# Crea dos clases: Producto y Tienda.
-
-# La clase Producto debe tener atributos como nombre, precio, cantidad y métodos para:
+# Crear una clase base Producto con atributos como nombre, precio, cantidad en stock, etc.
+# Definir al menos 2 clases derivadas para diferentes categorías de productos (por ejemplo, ProductoElectronico, ProductoAlimenticio) con atributos y métodos específicos.
+# Implementar operaciones CRUD para gestionar productos del inventario.
+# Manejar errores con bloques try-except para validar entradas y gestionar excepciones.
+# Persistir los datos en archivo JSON.
 
 class Producto:
-    def __init__(self, nombre, precio, cantidad):
-        self.__nombre = self.nombre
+    def __init__(self, nombre, precio, cantidad_en_stock):
+        self.__nombre = self.validar_nombre(nombre)
         self.__precio = self.validar_precio(precio)
-        self.__cantidad = self.validar_cantidad(cantidad)
+        self.__cantidad_en_stock = self.validar_cantidad(cantidad_en_stock)
     
     @property
     def nombre(self):
@@ -27,51 +23,57 @@ class Producto:
         return self.__precio
     @property
     def cantidad(self):
-        return self.__cantidad
+        return self.__cantidad_en_stock
     
     @nombre.setter
-    def nombre(self, nombre):
-        self.nombre = self.__nombre(nombre)
+    def nombre(self, validar_nombre):
+        self.nombre = self.validar_nombre(validar_nombre)
 
     @precio.setter
     def precio(self, validar_precio):
-        self.nombre = self.__validar_precio(validar_precio)
+        self.precio = self.validar_precio(validar_precio)
         
     @cantidad.setter
     def cantidad (self, validar_cantidad):
-        self.nombre = self.__validar_nombre(validar_cantidad)
+        self.cantidad = self.validar_cantidad(validar_cantidad)
+        
     
+    def validar_nombre(self, nombre):
+        try:
+            nuevo_nombre = str(nombre)
+            if not nombre:
+                 raise ValueError("El nombre del producto no puede estar vacío")
+            if nombre != str(nombre) and nombre == int(nombre):
+                 raise ValueError("No se aceptan valores numéricos")
+            return nuevo_nombre
+        except ValueError:
+           raise ValueError("Ingrese un nombre con letras, sin números, y en minúscula")
+
     def validar_precio(self, precio):
         try:
             precio_producto = float(precio)
-            if len(str(precio)) not in [1, 999]:
-                raise ValueError("Monto no disponible")
-            if precio_producto <= 0:
+            if not precio:
+                raise ValueError("Solo se aceptan valores numericos")
+            if precio <= 0:
                 raise ValueError("Monto menor a 0 no disponible")
             return precio_producto
         except ValueError:
-            raise ValueError("El precio de ser oscilar de 1 a 999 únicamente")
+            raise ValueError("El precio debe oscilar de 1 a 999 únicamente")
+      
     
     def validar_cantidad(self, cantidad):
         try:
-            cantidad_producto = int(cantidad)
-            if len(str(cantidad)) not in [1, 999]:
-                raise ValueError("Monto no disponible")
-            if cantidad_producto <= 0:
+            stock = int(cantidad)
+            if not cantidad:
+                raise ValueError("Solo se aceptan valores numericos")
+            if cantidad <= 0:
                 raise ValueError("Monto menor a 0 no disponible")
-            return cantidad_producto
+            return stock
         except ValueError:
-            raise ValueError("El precio de ser oscilar de 1 a 999 únicamente")
+            raise ValueError("Ingrese una cantidad admitida")
 
+p1 = Producto("Mate", 25.50, 10)
+#print(f"Producto 1: {p1.nombre} - Precio: ${p1.precio:.2f} - Stock: {p1.cantidad}")
 
-    
-
-# Mostrar información: Imprimir los detalles del producto.
-# Actualizar stock: Modificar la cantidad disponible.
-# La clase Tienda debe tener un atributo productos (una lista) para almacenar objetos Producto. Además, debe tener métodos para:
-
-# Agregar producto: Crear un validar objeto Producto y agregarlo a la lista.
-# Mostrar productos: Imprimir una lista de todos los productos disponibles.
-# Buscar producto: Buscar un producto por nombre y devolverlo.
-# Actualizar producto: Modificar los atributos de un producto existente.
-# Eliminar producto: Eliminar un producto de la lista.
+p1 = p1.validar_precio(5)
+print (p1)
