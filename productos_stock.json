@@ -1,0 +1,15 @@
+{
+    "Notebook": {
+        "nombre": "Notebook",
+        "precio": 100050.0,
+        "stock": 77,
+        "color": "Negro",
+        "memoria ram": "24",
+        "categoria": "Electrodomesticos",
+        "marca": "Asus",
+        "modelo": "Asus 9000",
+        "sistema_operativo": "windows 11",
+        "condicion": "Nuevo",
+        "accesorios": "Cable"
+    }
+}
