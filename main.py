@@ -21,22 +21,22 @@ def mostrar_menu():
 
 def agregar_producto(gestion, tipo_producto):
     try:
-        nombre = str(input('Ingrese el nombre del producto: '))
+        nombre = (input('Ingrese el nombre del producto: '))
         precio = float(input('Ingrese el precio del producto: '))
         stock = int(input('Ingrese el stock actual del producto: '))
-        color = str(input('Ingrese el color del producto: '))
+        color = (input('Ingrese el color del producto: '))
         memoria_ram = input('Ingrese la memoria RAM del producto: ')
-        categoria = str(input('Ingrese la categoría a la que corresponde el producto: '))
-        marca = str(input('Ingrese la marca del producto: '))
-        modelo = str(input('Ingrese el modelo del producto: '))
+        categoria = (input('Ingrese la categoría a la que corresponde el producto: '))
+        marca = (input('Ingrese la marca del producto: '))
+        modelo = (input('Ingrese el modelo del producto: '))
         if tipo_producto == '1':
-            plataforma = str(input('Ingrese la plataforma compatabible para uso del producto: '))
+            plataforma = (input('Ingrese la plataforma compatabible para uso del producto: '))
             tamanio = float(input('Ingrese el tamaño de memoria del producto: '))
             producto = ProductoDigital(nombre, precio, stock, color, memoria_ram, categoria, marca, modelo, plataforma, tamanio)
         elif tipo_producto == '2':
-            sistema_operativo = str(input('Ingrese el sistema operativo del producto: '))
-            condicion = str(input('Ingrese el estado (usado/nuevo) en que se encuentra el producto: '))
-            accesorios = str(input('Ingrese los accesorios que trae el producto: '))
+            sistema_operativo = (input('Ingrese el sistema operativo del producto: '))
+            condicion = (input('Ingrese el estado (usado/nuevo) en que se encuentra el producto: '))
+            accesorios = (input('Ingrese los accesorios que trae el producto: '))
             producto = ProductoFisico(nombre, precio, stock, color, memoria_ram, categoria, marca, modelo, sistema_operativo, condicion, accesorios)
         else:
             print('Opción inválida')
