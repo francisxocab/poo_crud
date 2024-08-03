@@ -89,93 +89,92 @@ class Producto:
     
     def validar_nombre(self, nombre):
         try:
-            nuevo_nombre = str(nombre)
-            if nombre == " ":
-                 raise ValueError("El nombre del producto no puede estar vacío")
-            if nombre != str(nombre) and nombre == int(nombre):
-                 raise ValueError("No se aceptan valores numéricos")
+            nuevo_nombre = str(nombre).strip() 
+            if not nuevo_nombre.isalpha():
+              raise ValueError("El nombre debe contener solo letras")
             return nuevo_nombre
-        except ValueError:
-           raise ValueError("Ingrese un nombre con letras, sin números, y en minúscula")
+        except ValueError as e:
+            raise ValueError("Error al validar el nombre: " + str(e))
+
 
     def validar_precio(self, precio):
         try:
-            precio_producto = float(precio)
-            if precio == str(precio):
-                 raise ValueError("Solo se aceptan valores numericos")
-            if precio <= 0:
-                 raise ValueError("Monto menor o igual a 0 no disponible")
-            return precio_producto
+            nuevo_precio = float(precio)
+            if nuevo_precio <= 0:
+                raise ValueError("El precio debe ser mayor a 0")
+            return nuevo_precio
         except ValueError:
-            raise ValueError("El precio debe ser positivo y mayor a O")
+            raise ValueError("El precio ingresado no es válido. Debe ser un número positivo.")
+
       
     
     def validar_stock(self, stock):
         try:
             nuevo_stock = int(stock)
-            if stock == str (stock):
-                raise ValueError("Solo se aceptan valores numericos")
-            if stock <= 0:
-                raise ValueError("Monto menor a 0 no disponible")
+            if nuevo_stock <= 0:
+                raise ValueError("El stock debe ser un número entero positivo")
             return nuevo_stock
         except ValueError:
-            raise ValueError("Ingrese un valor de stock admitido")
+            raise ValueError("El valor ingresado no es válido para el stock. Debe ser un número entero positivo.")
+
 
 
     def validar_color(self, color):
         try:
-            nuevo_color = str(color)
-            if color == " ":
-                 raise ValueError("El campo de Color del producto no puede estar vacío")
-            if color != str(color) and color == int(color):
-                 raise ValueError("No se aceptan valores numéricos")
+            nuevo_color = str(color).strip() 
+            if not nuevo_color:
+                raise ValueError("El campo de color no puede estar vacío")
+            if not nuevo_color.isalpha():
+                raise ValueError("El color debe contener solo letras")
             return nuevo_color
-        except ValueError:
-           raise ValueError("Ingrese el color del producto expresado con letras, sin números, y en minúscula")
+        except ValueError as e:
+            raise ValueError(f"Error al validar el color: {str(e)}")
+
 
     def validar_memoria_ram(self, memoria_ram):
         try:
-            nueva_memoria_ram = str(memoria_ram)
-            if memoria_ram == " ":
-                 raise ValueError("El campo de Memoria RAM del producto no puede estar vacío")
-            if memoria_ram != str(memoria_ram) and memoria_ram == int(memoria_ram):
-                 raise ValueError("No se aceptan valores numéricos")
+            nueva_memoria_ram = int(memoria_ram)  
+            if nueva_memoria_ram <= 0:
+                raise ValueError("La memoria RAM debe ser un número entero positivo")
             return nueva_memoria_ram
         except ValueError:
-           raise ValueError("Complete el campo de Memoria RAM")
+            raise ValueError("El valor ingresado para la memoria RAM no es válido. Debe ser un número entero positivo.")
 
     def validar_categoria(self, categoria):
         try:
-            nueva_categoria = str(categoria)
-            if categoria == " ":
-                 raise ValueError("La categoría a la que corresponden los productos no puede estar vacío")
-            if categoria != str(categoria) and categoria == int(categoria):
-                 raise ValueError("No se aceptan valores numéricos")
-            return nueva_categoria
-        except ValueError:
-           raise ValueError("Ingrese un nombre con letras, sin números, y en minúscula")
+            nueva_categoria = str(categoria).strip() 
+            if not nueva_categoria:
+                raise ValueError("El nombre de la categoría no puede estar vacío")
+            if not nueva_categoria.isalpha():
+                raise ValueError("El nombre de la categoría debe contener solo letras")
+            return nueva_categoria.lower()
+        except ValueError as e:
+            raise ValueError(f"Error al validar la categoría: {str(e)}")
+
 
     def validar_marca(self, marca):
         try:
-            nueva_marca = str(marca)
-            if marca == " ":
-                 raise ValueError("La marca a la que corresponden los productos no puede estar vacía")
-            if marca != str(marca) and marca == int(marca):
-                 raise ValueError("No se aceptan valores numéricos")
+            nueva_marca = str(marca).strip()  # Eliminamos espacios en blanco
+            if not nueva_marca:
+                raise ValueError("El nombre de la marca no puede estar vacío")
+            if not nueva_marca.isalpha():
+                raise ValueError("El nombre de la marca debe contener solo letras")
             return nueva_marca
-        except ValueError:
-           raise ValueError("Ingrese un nombre con letras, sin números, y en minúscula")
+        except ValueError as e:
+            raise ValueError(f"Error al validar la marca: {str(e)}")
+
 
     def validar_modelo(self, modelo):
         try:
-            nuevo_modelo = str(modelo)
-            if modelo == " ":
-                 raise ValueError("El campo de Modelo del producto no puede estar vacío")
-            if modelo != str(modelo) and modelo == int(modelo):
-                 raise ValueError("No se aceptan valores numéricos para esta sección")
+            nuevo_modelo = str(modelo).strip()  # Eliminamos espacios en blanco
+            if not nuevo_modelo:
+                raise ValueError("El nombre del modelo no puede estar vacío")
+            if not nuevo_modelo.isalnum():
+                raise ValueError("El nombre del modelo debe contener solo letras y números")
             return nuevo_modelo
-        except ValueError:
-           raise ValueError("Complete el campo de Modelo")
+        except ValueError as e:
+            raise ValueError(f"Error al validar el modelo: {str(e)}")
+
      
     def to_dict(self):
         return {
@@ -217,25 +216,25 @@ class ProductoDigital(Producto):
 
     def validar_plataforma(self, plataforma):
         try:
-            nueva_plataforma = str(plataforma)
-            if plataforma == " ":
-                 raise ValueError("El campo de Plataforma no puede estar vacío")
-            if plataforma != str(plataforma) and plataforma == int(plataforma):
-                 raise ValueError("No se aceptan valores numéricos en esta sección")
+            nueva_plataforma = str(plataforma).strip()
+            if not nueva_plataforma:
+                raise ValueError("El nombre de la plataforma no puede estar vacío")
+            if not nueva_plataforma.isalnum():
+                raise ValueError("El nombre de la plataforma debe contener solo letras y números")
             return nueva_plataforma
-        except ValueError:
-           raise ValueError("Complete el campo de Plataforma")
+        except ValueError as e:
+            raise ValueError(f"Error al validar la plataforma: {str(e)}")
+
 
     def validar_tamanio(self, tamanio):
         try:
-            nuevo_tamanio = str(tamanio)
-            if tamanio == " ":
-                 raise ValueError("El campo de tamaño no puede estar vacío")
-            if tamanio != str(tamanio) and tamanio == int(tamanio):
-                 raise ValueError("No se aceptan valores numéricos en esta sección")
+            nuevo_tamanio = str(tamanio).strip()  
+            if not nuevo_tamanio:
+                raise ValueError("El campo de tamaño no puede estar vacío")
             return nuevo_tamanio
-        except ValueError:
-           raise ValueError("Complete el campo de tamaño")
+        except ValueError as e:
+            raise ValueError(f"Error al validar el tamaño: {str(e)}")
+
 
 
     def to_dict(self):
@@ -281,37 +280,36 @@ class ProductoFisico(Producto):
         
     def validar_sistema_operativo(self, sistema_operativo):
         try:
-            nuevo_sistema_operativo = str(sistema_operativo)
-            if sistema_operativo == " ":
-                 raise ValueError("El nombre del sistema_operativo del producto no puede estar vacío")
-            if sistema_operativo != str(sistema_operativo) and sistema_operativo == int(sistema_operativo):
-                 raise ValueError("No se aceptan valores numéricos")
+            nuevo_sistema_operativo = str(sistema_operativo).strip()  
+            if not nuevo_sistema_operativo:
+                raise ValueError("El nombre del sistema operativo no puede estar vacío")
+            if not nuevo_sistema_operativo.isalnum():
+                raise ValueError("El nombre del sistema operativo debe contener solo letras y números")
             return nuevo_sistema_operativo
-        except ValueError:
-           raise ValueError("Ingrese el sistema operativo del producto") 
+        except ValueError as e:
+            raise ValueError(f"Error al validar el sistema operativo: {str(e)}")
+
        
 
     def validar_condicion(self, condicion):
         try:
-            nueva_condicion = str(condicion)
-            if condicion == " ":
-                 raise ValueError("El campo de Condición no puede estar vacío")
-            if condicion != str(condicion) and condicion == int(condicion):
-                 raise ValueError("No se aceptan valores numéricos en esta sección")
+            nueva_condicion = str(condicion).strip()  
+            if not nueva_condicion:
+                raise ValueError("El campo de condición no puede estar vacío")
             return nueva_condicion
-        except ValueError:
-           raise ValueError("Complete el campo de Condición")
+        except ValueError as e:
+            raise ValueError(f"Error al validar la condición del producto: {str(e)}")
+
 
     def validar_accesorios(self, accesorios):
         try:
-            nuevos_accesorios = str(accesorios)
-            if accesorios == " ":
-                 raise ValueError("El campo de Accesorios no puede estar vacío")
-            if accesorios != str(accesorios) and accesorios == int(accesorios):
-                 raise ValueError("No se aceptan valores numéricos en esta sección")
+            nuevos_accesorios = str(accesorios).strip() 
+            if not nuevos_accesorios:
+                raise ValueError("El campo de accesorios no puede estar vacío")
             return nuevos_accesorios
-        except ValueError:
-           raise ValueError("Complete el campo de Accesorios")
+        except ValueError as e:
+            raise ValueError(f"Error al validar los accesorios: {str(e)}")
+
 
     def to_dict(self):
         data = super().to_dict()
