@@ -13,7 +13,7 @@ def mostrar_menu():
     print('1. Agregar producto digital')
     print('2. Agregar producto físico')
     print('3. Buscar producto por nombre')
-    print('4. Actualizar producto')
+    print('4. Actualizar stock del producto')
     print('5. Eliminar producto por nombre')
     print('6. Mostrar todos los productos')
     print('7. Salir')
@@ -21,23 +21,23 @@ def mostrar_menu():
 
 def agregar_producto(gestion, tipo_producto):
     try:
-        nombre = (input('Ingrese el nombre del producto: '))
+        nombre = input('Ingrese el nombre del producto: ')
         precio = float(input('Ingrese el precio del producto: '))
         stock = int(input('Ingrese el stock actual del producto: '))
-        color = (input('Ingrese el color del producto: '))
-        memoria_ram = input('Ingrese la memoria RAM del producto: ')
-        categoria = (input('Ingrese la categoría a la que corresponde el producto: '))
-        marca = (input('Ingrese la marca del producto: '))
-        modelo = (input('Ingrese el modelo del producto: '))
+        categoria = input('Ingrese la categoría a la que corresponde el producto: ')
+        marca = input('Ingrese la marca del producto: ')
+        modelo = input('Ingrese el modelo del producto: ')
         if tipo_producto == '1':
-            plataforma = (input('Ingrese la plataforma compatabible para uso del producto: '))
+            plataforma = input('Ingrese la plataforma compatible para uso del producto: ')
             tamanio = float(input('Ingrese el tamaño de memoria del producto: '))
-            producto = ProductoDigital(nombre, precio, stock, color, memoria_ram, categoria, marca, modelo, plataforma, tamanio)
+            producto = ProductoDigital(nombre, precio, stock, categoria, marca, modelo, plataforma, tamanio)
         elif tipo_producto == '2':
-            sistema_operativo = (input('Ingrese el sistema operativo del producto: '))
-            condicion = (input('Ingrese el estado (usado/nuevo) en que se encuentra el producto: '))
-            accesorios = (input('Ingrese los accesorios que trae el producto: '))
-            producto = ProductoFisico(nombre, precio, stock, color, memoria_ram, categoria, marca, modelo, sistema_operativo, condicion, accesorios)
+            color = input('Ingrese el color del producto: ')
+            memoria_ram = int(input('Ingrese la memoria RAM del producto: '))
+            sistema_operativo = input('Ingrese el sistema operativo del producto: ')
+            condicion = input('Ingrese el estado (usado/nuevo) en que se encuentra el producto: ')
+            accesorios = input('Ingrese los accesorios que trae el producto: ')
+            producto = ProductoFisico(nombre, precio, stock, categoria, marca, modelo, color, memoria_ram, sistema_operativo, condicion, accesorios)
         else:
             print('Opción inválida')
             return
@@ -57,7 +57,7 @@ def buscar_producto_por_nombre(gestion):
 
 def actualizar_producto(gestion):
     nombre = input('Ingrese el nombre del producto para actualizar stock: ')
-    stock = int(input('Ingrese el stock actual del producto: '))
+    stock = int(input('Ingrese el stock actualizado del producto: '))
     gestion.actualizar_producto(nombre, stock)
     input('Presione enter para continuar...')
 

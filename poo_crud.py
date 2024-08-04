@@ -13,12 +13,10 @@
 import json
 
 class Producto:
-    def __init__(self, nombre, precio, stock, color, memoria_ram, categoria, marca, modelo):
+    def __init__(self, nombre, precio, stock, categoria, marca, modelo):
         self.__nombre = self.validar_nombre(nombre)
         self.__precio = self.validar_precio(precio)
-        self.__stock = self.validar_stock(stock)
-        self.__color = self.validar_color(color)    
-        self.__memoria_ram = self.validar_memoria_ram(memoria_ram)  
+        self.__stock = self.validar_stock(stock)  
         self.__categoria = self.validar_categoria(categoria)
         self.__marca = self.validar_marca(marca)
         self.__modelo = self.validar_modelo(modelo)
@@ -33,14 +31,6 @@ class Producto:
     @property
     def stock(self):
         return self.__stock
-
-    @property
-    def color(self):
-        return self.__color.capitalize()
-
-    @property
-    def memoria_ram(self):
-        return self.__memoria_ram
 
     @property
     def categoria(self):
@@ -66,13 +56,6 @@ class Producto:
     def stock (self, nuevo_stock):
         self.stock = self.validar_stock(nuevo_stock)
 
-    @color.setter
-    def color (self, nuevo_color):
-        self.color = self.validar_color(nuevo_color)
-
-    @memoria_ram.setter
-    def memoria_ram (self, nueva_memoria_ram):
-        self.memoria_ram = self.validar_memoria_ram(nueva_memoria_ram)
 
     @categoria.setter
     def categoria (self, nueva_categoria):
@@ -89,8 +72,8 @@ class Producto:
     
     def validar_nombre(self, nombre):
         try:
-            nuevo_nombre = str(nombre).strip() 
-            if not nuevo_nombre.isalpha():
+            nuevo_nombre = str(nombre)
+            if not nuevo_nombre:
               raise ValueError("El nombre debe contener solo letras")
             return nuevo_nombre
         except ValueError as e:
@@ -119,27 +102,6 @@ class Producto:
 
 
 
-    def validar_color(self, color):
-        try:
-            nuevo_color = str(color).strip() 
-            if not nuevo_color:
-                raise ValueError("El campo de color no puede estar vacío")
-            if not nuevo_color.isalpha():
-                raise ValueError("El color debe contener solo letras")
-            return nuevo_color
-        except ValueError as e:
-            raise ValueError(f"Error al validar el color: {str(e)}")
-
-
-    def validar_memoria_ram(self, memoria_ram):
-        try:
-            nueva_memoria_ram = int(memoria_ram)  
-            if nueva_memoria_ram <= 0:
-                raise ValueError("La memoria RAM debe ser un número entero positivo")
-            return nueva_memoria_ram
-        except ValueError:
-            raise ValueError("El valor ingresado para la memoria RAM no es válido. Debe ser un número entero positivo.")
-
     def validar_categoria(self, categoria):
         try:
             nueva_categoria = str(categoria).strip() 
@@ -154,7 +116,7 @@ class Producto:
 
     def validar_marca(self, marca):
         try:
-            nueva_marca = str(marca).strip()  # Eliminamos espacios en blanco
+            nueva_marca = str(marca).strip()
             if not nueva_marca:
                 raise ValueError("El nombre de la marca no puede estar vacío")
             if not nueva_marca.isalpha():
@@ -166,10 +128,10 @@ class Producto:
 
     def validar_modelo(self, modelo):
         try:
-            nuevo_modelo = str(modelo).strip()  # Eliminamos espacios en blanco
+            nuevo_modelo = str(modelo).strip()
             if not nuevo_modelo:
                 raise ValueError("El nombre del modelo no puede estar vacío")
-            if not nuevo_modelo.isalnum():
+            if not nuevo_modelo:
                 raise ValueError("El nombre del modelo debe contener solo letras y números")
             return nuevo_modelo
         except ValueError as e:
@@ -181,20 +143,18 @@ class Producto:
             "nombre": self.nombre,
             "precio": self.precio,
             "stock": self.stock,
-            "color": self.color,
-            "memoria ram": self.memoria_ram,
             "categoria": self.categoria,
             "marca": self.marca,
             "modelo": self.modelo
         }
 
     def __str__(self):
-        return f"{self.nombre} {self.color} {self.memoria_ram} {self.categoria} {self.marca} {self.modelo}"
+        return f" - Producto: {self.nombre} \n - Categoría: {self.categoria} \n - Marca: {self.marca} \n - Modelo: {self.modelo}"
        
 
 class ProductoDigital(Producto):
-    def __init__(self, nombre, precio, stock, color, memoria_ram, categoria, marca, modelo, plataforma, tamanio):
-        super().__init__(nombre, precio, stock, color, memoria_ram, categoria, marca, modelo)
+    def __init__(self, nombre, precio, stock, categoria, marca, modelo, plataforma, tamanio):
+        super().__init__(nombre, precio, stock, categoria, marca, modelo)
         self.__plataforma = self.validar_plataforma(plataforma)
         self.__tamanio = self.validar_tamanio(tamanio)
         
@@ -204,7 +164,7 @@ class ProductoDigital(Producto):
 
     @property
     def tamanio(self):
-        return self.__tamanio.capitalize()
+        return self.__tamanio
 
     @plataforma.setter
     def plataforma (self, nueva_plataforma):
@@ -219,8 +179,6 @@ class ProductoDigital(Producto):
             nueva_plataforma = str(plataforma).strip()
             if not nueva_plataforma:
                 raise ValueError("El nombre de la plataforma no puede estar vacío")
-            if not nueva_plataforma.isalnum():
-                raise ValueError("El nombre de la plataforma debe contener solo letras y números")
             return nueva_plataforma
         except ValueError as e:
             raise ValueError(f"Error al validar la plataforma: {str(e)}")
@@ -228,7 +186,7 @@ class ProductoDigital(Producto):
 
     def validar_tamanio(self, tamanio):
         try:
-            nuevo_tamanio = str(tamanio).strip()  
+            nuevo_tamanio = float(tamanio) 
             if not nuevo_tamanio:
                 raise ValueError("El campo de tamaño no puede estar vacío")
             return nuevo_tamanio
@@ -244,18 +202,28 @@ class ProductoDigital(Producto):
         return data
 
     def __str__(self):
-        return f"{super().__str__()} - Plataforma: {self.plataforma} - tamanio: {self.tamanio}"
+        return f"{super().__str__()} \n - Plataforma: {self.plataforma} \n - Memoria: {self.tamanio}"
 
 class ProductoFisico(Producto):
-    def __init__(self, nombre, precio, stock, color, memoria_ram, categoria, marca, modelo, sistema_operativo, condicion, accesorios):
-        super().__init__(nombre, precio, stock, color, memoria_ram, categoria, marca, modelo)
+    def __init__(self, nombre, precio, stock, categoria, marca, modelo, color, memoria_ram, sistema_operativo, condicion, accesorios):
+        super().__init__(nombre, precio, stock, categoria, marca, modelo)
+        self.__color = self.validar_color(color) 
+        self.__memoria_ram = self.validar_memoria_ram(memoria_ram)
         self.__sistema_operativo = self.validar_sistema_operativo(sistema_operativo)
         self.__condicion = self.validar_condicion(condicion)
         self.__accesorios = self.validar_accesorios(accesorios)
+
+    @property
+    def color(self):
+        return self.__color.capitalize()
     
     @property
+    def memoria_ram(self):
+        return self.__memoria_ram
+        
+    @property
     def sistema_operativo(self):
-        return self.__sistema_operativo  
+        return self.__sistema_operativo.capitalize()
     
     @property
     def condicion(self):
@@ -265,6 +233,14 @@ class ProductoFisico(Producto):
     def accesorios(self):
         return self.__accesorios.capitalize()
 
+    @color.setter
+    def color (self, nuevo_color):
+        self.color = self.validar_color(nuevo_color)
+        
+    @memoria_ram.setter
+    def memoria_ram (self, nueva_memoria_ram):
+        self.memoria_ram = self.validar_memoria_ram(nueva_memoria_ram)
+        
     @sistema_operativo.setter
     def sistema_operativo (self, nuevo_sistema_operativo):
         self.sistema_operativo = self.validar_sistema_operativo(nuevo_sistema_operativo)
@@ -277,19 +253,36 @@ class ProductoFisico(Producto):
     @accesorios.setter
     def accesorios (self, nuevos_accesorios):
         self.accesorios = self.validar_accesorios(nuevos_accesorios)
+
+    def validar_color(self, color):
+        try:
+            nuevo_color = str(color).strip() 
+            if not nuevo_color:
+                raise ValueError("El campo de color no puede estar vacío")
+            if not nuevo_color.isalpha():
+                raise ValueError("El color debe contener solo letras")
+            return nuevo_color
+        except ValueError as e:
+            raise ValueError(f"Error al validar el color: {str(e)}")
+        
+    def validar_memoria_ram(self, memoria_ram):
+        try:
+            nueva_memoria_ram = int(memoria_ram)  
+            if nueva_memoria_ram <= 0:
+                raise ValueError("La memoria RAM debe ser un número entero positivo")
+            return nueva_memoria_ram
+        except ValueError:
+            raise ValueError("El valor ingresado para la memoria RAM no es válido. Debe ser un número entero positivo.")
+        
         
     def validar_sistema_operativo(self, sistema_operativo):
         try:
             nuevo_sistema_operativo = str(sistema_operativo).strip()  
             if not nuevo_sistema_operativo:
                 raise ValueError("El nombre del sistema operativo no puede estar vacío")
-            if not nuevo_sistema_operativo.isalnum():
-                raise ValueError("El nombre del sistema operativo debe contener solo letras y números")
             return nuevo_sistema_operativo
         except ValueError as e:
             raise ValueError(f"Error al validar el sistema operativo: {str(e)}")
-
-       
 
     def validar_condicion(self, condicion):
         try:
@@ -299,7 +292,6 @@ class ProductoFisico(Producto):
             return nueva_condicion
         except ValueError as e:
             raise ValueError(f"Error al validar la condición del producto: {str(e)}")
-
 
     def validar_accesorios(self, accesorios):
         try:
@@ -313,13 +305,15 @@ class ProductoFisico(Producto):
 
     def to_dict(self):
         data = super().to_dict()
+        data["color"] = self.color
+        data["memoria_ram"] = self.memoria_ram
         data["sistema_operativo"] = self.sistema_operativo
         data["condicion"] = self.condicion
         data["accesorios"] = self.accesorios
         return data
 
     def __str__(self):
-        return f"{super().__str__()} - sistema_operativo: {self.sistema_operativo} - Condición: {self.condicion} - Accesorios: {self.accesorios}"
+        return f"{super().__str__()} \n - Color: {self.color} \n - Memoria ram: {self.memoria_ram} \n - Sistema_operativo: {self.sistema_operativo} \n - Condición: {self.condicion} \n - Accesorios: {self.accesorios}"
 
 class GestionProductos:
     def __init__(self, archivo):
@@ -363,16 +357,17 @@ class GestionProductos:
             datos = self.leer_datos()
             if nombre in datos:
                 producto_data = datos[nombre]
-                if 'nombre' in producto_data:
+                if 'tamanio' in producto_data:
                     producto = ProductoDigital(**producto_data)
                 else:
                     producto = ProductoFisico(**producto_data)
-                print(f'Producto encontrado en stock por su nombre: {nombre}')
+                print(f'Producto encontrado en stock por su nombre: ')
+                print (producto)
             else:
                 print(f'No se encontró el producto en stock por su nombre: {nombre}')
 
-        except Exception as e:
-            print('Error al leer producto: {e}')
+        except Exception as error:
+            print(f'error al encontrar el producto: {error}')
 
     def actualizar_producto(self, nombre, nuevo_stock):
         try:

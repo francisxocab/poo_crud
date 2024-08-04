@@ -1,15 +1,25 @@
 {
+    "Silent hill": {
+        "nombre": "Silent hill",
+        "precio": 1300.0,
+        "stock": 9,
+        "categoria": "Videojuegos",
+        "marca": "Konami",
+        "modelo": "Silent hill 2",
+        "plataforma": "Pc, playstation 2",
+        "tamanio": 1.4
+    },
     "Notebook": {
         "nombre": "Notebook",
-        "precio": 100050.0,
-        "stock": 77,
-        "color": "Negro",
-        "memoria ram": "24",
+        "precio": 34987.0,
+        "stock": 45,
         "categoria": "Electrodomesticos",
         "marca": "Asus",
         "modelo": "Asus 9000",
-        "sistema_operativo": "windows 11",
+        "color": "Negro",
+        "memoria_ram": 24,
+        "sistema_operativo": "Windows 11",
         "condicion": "Nuevo",
-        "accesorios": "Cable"
+        "accesorios": "Manual, garantia, cable de alimentacion"
     }
 }
